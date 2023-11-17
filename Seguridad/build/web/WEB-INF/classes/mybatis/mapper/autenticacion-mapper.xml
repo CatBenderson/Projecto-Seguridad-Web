@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="autenticacion">
+    <select id="autenticacionSegura" resultType="modelo.pojo.Administrador" parameterType="modelo.pojo.Administrador">
+        SELECT * 
+        FROM administrador 
+        WHERE nombreUsuario = #{nombreUsuario} 
+        AND contraseña = #{contraseña}
+    </select>
+    <select id="autenticacionInsegura" resultType="modelo.pojo.Administrador" parameterType="modelo.pojo.Administrador">
+        SELECT id, nombreUsuario, contraseña 
+        FROM administrador 
+        WHERE nombreUsuario = #{nombreUsuario} 
+        AND contraseña = ${contraseña}
+    </select>
+    <update id="actualizarAdmin" parameterType="modelo.pojo.Administrador">
+        UPDATE administrador SET contraseña = #{contraseña} WHERE (nombreUsuario = #{nombreUsuario})
+    </update>
+</mapper>

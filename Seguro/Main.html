@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="Script.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload=inicializar()>
+    <div style="display: inline-block; height: 80px; width: 100%;">
+        <button class="btn btn-secondary rounded-lg text-center bg-warning border-warning text-dark m-2 p-1"
+            onclick="cambiarPagina('http://127.0.0.1:5500/CambioContraseña.html')">Ir a cambiar contraseña</button>
+        <button class="btn btn-secondary rounded-lg text-center bg-warning border-warning text-dark m-2 p-1"
+            onclick="cambiarPagina('http://127.0.0.1:5500/LoginInseguro.html')">Cerrar sesión</button>
+    </div>
+    <div style="display: flex;">
+        <div style="display: inline-block; height: 500px; width: 40%;">
+            <h2>Gestión de empleados</h2>
+            <form>
+                <select class="form control form-control-lg w-75 m-2 border border-warning" name="empleado"
+                    id="numerosEmpleadosRH" style="visibility: hidden;  display: none;"
+                    onchange="cargarDatosEmpleado(0)">
+                </select>
+                <select class="form control form-control-lg w-75 m-2 border border-warning" name="empleado"
+                    id="numerosEmpleadosFNZ" style="visibility: hidden;  display: none;"
+                    onchange="cargarDatosEmpleado(1)">
+                </select>
+                <input id="nombre" class="form control form-control-lg w-75 m-2 border border-warning"
+                    placeholder="Nombre" name="Nombre">
+                <input id="apellidoPaterno" class="form control form-control-lg w-75 m-2 border border-warning"
+                    placeholder="Apellido Paterno" name="ApellidoPaterno">
+                <input id="apellidoMaterno" class="form control form-control-lg w-75 m-2 border border-warning"
+                    placeholder="Apellido Materno" name="ApellidoMaterno">
+                <input id="numeroEmpleado" class="form control form-control-lg w-75 m-2 border border-warning"
+                    placeholder="Numero de Empleado" name="NumeroEmpleado">
+                <select class="form control form-control-lg w-75 m-2 border border-warning" id="departamentoSelectForm">
+                    <option value="0">Departamento </option>
+                    <option value="Recursos Humanos">Recursos Humanos </option>
+                    <option value="Finanzas">Finanzas</option>
+                </select>
+            </form>
+            <button style="visibility: hidden;  display: none;" id="btnGuardarRH" onclick=guardarEmpleado(0)
+                class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0">Guardar</button>
+            <button style="visibility: hidden;  display: none;" id="btnGuardarFNZ" onclick=guardarEmpleado(1)
+                class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0">Guardar</button>
+            <button style="visibility: hidden;  display: none;" id="btnEliminarRH" onclick=eliminarEmpleado(0)
+                class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0">Eliminar</button>
+            <button style="visibility: hidden;  display: none;" id="btnEliminarFNZ" onclick=eliminarEmpleado(1)
+                class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0">Eliminar</button>
+        </div>
+
+        <div style="display: inline-block; height: 500px; width: 59%;">
+            <div style="visibility: hidden;  display: none;" id="Recursos Humanos">
+                <h1>Recursos Humanos</h1>
+                <table class="table table-bordered" id="tablaRH">
+                    <tr class="thead-dark">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido Paterno</th>
+                        <th scope="col">Apellido Materno</th>
+                        <th scope="col">Número de empleado</th>
+                        <th scope="col">Redes sociales</th>
+                    </tr>
+                </table>
+            </div>
+            <div style="visibility: hidden; display: none;" id="Finanzas">
+                <h1>Finanzas</h1>
+                <table class="table table-bordered" id="tablaFnz">
+                    <tr class="thead-dark">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido Paterno</th>
+                        <th scope="col">Apellido Materno</th>
+                        <th scope="col">Número de empleado</th>
+                        <th scope="col">Redes sociales</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <form name="XSS" method="GET">
+        <select class="form control form-control-lg w-25 m-2 border border-warning" name="departamento" id="departamento">
+        </select>
+        <input class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0"
+            type="submit" value="Seleccionar" />
+
+        <script>
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var options = ['Recursos Humanos', 'Finanzas'];
+            var departamento = getParameterByName('departamento');
+
+            var select = document.getElementById('departamento');
+            options.forEach(function (option) {
+                var optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.text = option;
+                select.add(optionElement);
+            });
+
+            if (departamento) {
+                select.value = departamento;
+            }
+        </script>
+    </form>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('departamento')) {
+            var nombre = urlParams.get('departamento');
+            document.getElementById(nombre).style.visibility = "visible";
+            document.getElementById(nombre).style.display = "block"
+            if (nombre == "Recursos Humanos") {
+                document.getElementById("numerosEmpleadosRH").style.visibility = "visible";
+                document.getElementById("numerosEmpleadosRH").style.display = "block"
+                document.getElementById("btnGuardarRH").style.visibility = "visible";
+                document.getElementById("btnGuardarRH").style.display = "block"
+                document.getElementById("btnEliminarRH").style.visibility = "visible";
+                document.getElementById("btnEliminarRH").style.display = "block"
+            } else {
+                document.getElementById("numerosEmpleadosFNZ").style.visibility = "visible";
+                document.getElementById("numerosEmpleadosFNZ").style.display = "block"
+                document.getElementById("btnGuardarFNZ").style.visibility = "visible";
+                document.getElementById("btnGuardarFNZ").style.display = "block"
+                document.getElementById("btnEliminarFNZ").style.visibility = "visible";
+                document.getElementById("btnEliminarFNZ").style.display = "block"
+            }
+        } 
+    </script>
+</body>
+
+</html>
