@@ -10,6 +10,8 @@ var tablaFinanzas;
 var tablaRH;
 var divFinanzas;
 var divRecursosHumanos;
+var IP = "10.50.31.55"
+var API_IP = "http://"+IP+":8084/seguridad/api/"
 
 var ñam
 
@@ -35,7 +37,7 @@ async function onLogin() {
         informacion = document.getElementById("informacion");
 
         const response = await axios.post(
-            "http://localhost:8084/seguridad/api/autenticacion/loginInseguro",
+            API_IP+"autenticacion/loginInseguro",
             `nombreUsuario=${nombreUsuario}&contraseña=${contraseña}`,
             {
                 headers: {
@@ -45,7 +47,7 @@ async function onLogin() {
         );
         informacion.textContent = response.data.mensaje;
         if (response.data.error == false) {
-            cambiarPagina("http://127.0.0.1:5500/Main.html")
+            location.href="Main.html";
         }
 
     } catch (error) {
@@ -56,7 +58,7 @@ async function onLogin() {
 
 async function cambiarContraseña(nombreUsuario, contraseña) {
     const response = await axios.post(
-        "http://localhost:8084/seguridad/api/autenticacion/cambiarContraseña",
+        API_IP+"autenticacion/cambiarContraseña",
         `nombreUsuario=${nombreUsuario}&contraseña=${contraseña}`,
         {
             headers: {
@@ -84,7 +86,7 @@ async function obtenerEmpleados() {
         numerosEmpleadosFNZ.add(defaultFNZ);
 
         const response = await axios.get(
-            "http://localhost:8084/seguridad/api/empleado/obtenerEmpleados",
+            API_IP+ "empleado/obtenerEmpleados",
             { responseType: 'text' }
         );
 
@@ -157,7 +159,7 @@ async function cargarDatosEmpleado(departamento) {
     if (selectValor != 0) {
 
         const response = await axios.get(
-            "http://localhost:8084/seguridad/api/empleado/obtenerEmpleado/" + selectValor,
+            API_IP+"empleado/obtenerEmpleado/" + selectValor,
             { responseType: 'text' }
         );
 
@@ -189,7 +191,7 @@ async function guardarEmpleado(departamento) {
 
     if (selectValor != 0) {
         const response = await axios.put(
-            "http://localhost:8084/seguridad/api/empleado/editar",
+            API_IP+ "empleado/editar",
             {
                 "apellidoMaterno": apellidoMaterno.value,
                 "apellidoPaterno": apellidoPaterno.value,
@@ -206,7 +208,7 @@ async function guardarEmpleado(departamento) {
         location.reload()
     } else {
         const response = await axios.post(
-            "http://localhost:8084/seguridad/api/empleado/registrar",
+            API_IP+"empleado/registrar",
             {
                 "apellidoMaterno": apellidoMaterno.value,
                 "apellidoPaterno": apellidoPaterno.value,
@@ -236,7 +238,7 @@ async function eliminarEmpleado(departamento) {
         var confirmacion = confirm("¿Deseas eliminar este empleado?");
         if (confirmacion) {
             const response = await axios.delete(
-                "http://localhost:8084/seguridad/api/empleado/eliminarEmpleado/" + numeroEmpleado.value);
+                API_IP+"empleado/eliminarEmpleado/" + numeroEmpleado.value);
         }
         location.reload()
     }

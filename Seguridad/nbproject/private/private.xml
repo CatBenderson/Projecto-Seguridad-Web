@@ -4,9 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ameya/Escritorio/Seguridad/Seguridad/src/java/ws/ApplicationConfig.java</file>
-            <file>file:/C:/Users/ameya/Escritorio/Seguridad/Seguridad/src/java/mybatis/mapper/empleado-mapper.xml</file>
-            <file>file:/C:/Users/ameya/Escritorio/Seguridad/Seguridad/src/java/ws/EmpleadoWS.java</file>
-            <file>file:/C:/Users/ameya/Escritorio/Seguridad/Seguridad/src/java/modelo/EmpleadoDAO.java</file>
+            <file>file:/C:/Users/ameya/Escritorio/Seguridad/Seguridad/src/java/mybatis/mapper/autenticacion-mapper.xml</file>
         </group>
     </open-files>
 </project-private>

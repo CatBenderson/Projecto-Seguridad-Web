@@ -13,9 +13,9 @@
 <body onload=inicializar()>
     <div style="display: inline-block; height: 80px; width: 100%;">
         <button class="btn btn-secondary rounded-lg text-center bg-warning border-warning text-dark m-2 p-1"
-            onclick="cambiarPagina('http://127.0.0.1:5500/CambioContraseña.html')">Ir a cambiar contraseña</button>
+            onclick="cambiarPagina('CambioContraseña.html')">Ir a cambiar contraseña</button>
         <button class="btn btn-secondary rounded-lg text-center bg-warning border-warning text-dark m-2 p-1"
-            onclick="cambiarPagina('http://127.0.0.1:5500/LoginInseguro.html')">Cerrar sesión</button>
+            onclick="cambiarPagina('LoginInseguro.html')">Cerrar sesión</button>
     </div>
     <div style="display: flex;">
         <div style="display: inline-block; height: 500px; width: 40%;">
@@ -86,7 +86,6 @@
         </select>
         <input class="btn btn-secondary rounded-lg w-25 text-center bg-warning border-warning text-dark mb-1 p-0"
             type="submit" value="Seleccionar" />
-
         <script>
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
@@ -108,7 +107,6 @@
                 optionElement.text = option;
                 select.add(optionElement);
             });
-
             if (departamento) {
                 select.value = departamento;
             }
